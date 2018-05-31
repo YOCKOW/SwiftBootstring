@@ -1,6 +1,6 @@
 import XCTest
-import SwiftBootstringTests
+import BootstringTests
 
 var tests = [XCTestCaseEntry]()
-tests += SwiftBootstringTests.allTests()
+tests += BootstringTests.allTests()
 XCTMain(tests)
