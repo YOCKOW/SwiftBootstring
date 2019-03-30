@@ -1,6 +1,6 @@
 /***************************************************************************************************
  Bootstring+Punycode.swift
-   © 2017-2018 YOCKOW.
+   © 2017-2019 YOCKOW.
      Licensed under MIT License.
      See "LICENSE.txt" for more information.
  **************************************************************************************************/
@@ -16,7 +16,7 @@ extension Bootstring {
     initialBias:72,
     initialScalar:UnicodeScalar(0x80),
     additionalBasicScalars: nil,
-    delimiter:UnicodeScalar("-")!,
+    delimiter:"-",
     digitEncoder: {
       switch $0 {
       case 0..<26: return UnicodeScalar($0 + 0x61)! // a-z
