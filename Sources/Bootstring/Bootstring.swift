@@ -197,7 +197,6 @@ extension Bootstring {
     
     // Encoding Loop
     var bias: Int = self.initialBias
-    var oldIndex: Int = 0
     for ii in 0..<nonBasicScalars.count {
       let info = nonBasicScalars[ii]
       let target: Int = Int(info.scalar.value)
