@@ -1,11 +1,11 @@
-/***************************************************************************************************
- String+Punycode.swift
-   © 2017-2018 YOCKOW.
+/* *************************************************************************************************
+ StringProtocol+Punycode.swift
+   © 2017-2018, 2020 YOCKOW.
      Licensed under MIT License.
      See "LICENSE.txt" for more information.
  **************************************************************************************************/
  
-extension String {
+extension StringProtocol {
   /// Returns a new string that is encoded with Punycode, or `nil` if encoding fails.
   public var addingPunycodeEncoding: String? {
     return self.addingBootstringEncoding(with:Bootstring.punycode)

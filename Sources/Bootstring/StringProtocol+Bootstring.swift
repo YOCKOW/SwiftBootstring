@@ -1,11 +1,11 @@
-/***************************************************************************************************
- String+Bootstring.swift
-   © 2017-2018 YOCKOW.
+/* *************************************************************************************************
+ StringProtocol+Bootstring.swift
+   © 2017-2018, 2020 YOCKOW.
      Licensed under MIT License.
      See "LICENSE.txt" for more information.
  **************************************************************************************************/
  
-extension String {
+extension StringProtocol {
   /// Returns a new string, made from the receiver, composed from a small set of basic code points
   /// using parameters of the Bootstring encoder.
   /// - parameter encoder: an instance of `Bootstring`.

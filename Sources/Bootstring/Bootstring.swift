@@ -1,19 +1,12 @@
-/***************************************************************************************************
+/* *************************************************************************************************
  Bootstring.swift
-   © 2017-2018 YOCKOW.
+   © 2017-2018, 2020 YOCKOW.
      Licensed under MIT License.
      See "LICENSE.txt" for more information.
  **************************************************************************************************/
 
-///
-/**
- 
- # Bootstring
- Bootstring is one of string encoding methods.
- This structure holds parameters of Bootstring and can encode/decode string with them.
- 
-*/
-///
+/// Bootstring is one of string encoding methods.
+/// This structure holds parameters of Bootstring and can encode/decode string with them.
 public struct Bootstring {
   public var base: Int
   public var minimumThreshold: Int // `tmin` in RFC 3492
@@ -86,7 +79,7 @@ extension Bootstring {
   /// Decode `string` using `self`.
   /// - parameter string: The string to parse.
   /// - returns: Decoded string.
-  public func decode(_ string:String) throws -> String {
+  public func decode<S>(_ string: S) throws -> String where S: StringProtocol {
     if !self.isValid { throw BootstringError.invalidParameters }
     
     // reference: https://tools.ietf.org/html/rfc3492#section-6.2
@@ -167,7 +160,7 @@ extension Bootstring {
   /// Encode `string` using `self`
   /// - parameter string: The string to encode.
   /// - returns: Encoded string.
-  public func encode(_ string:String) throws -> String {
+  public func encode<S>(_ string: S) throws -> String where S: StringProtocol {
     if !self.isValid { throw BootstringError.invalidParameters }
     
     // reference: https://tools.ietf.org/html/rfc3492#section-6.3
