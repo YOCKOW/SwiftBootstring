@@ -1,19 +1,12 @@
-/***************************************************************************************************
+/* *************************************************************************************************
  Bootstring.swift
-   © 2017-2018 YOCKOW.
+   © 2017-2018, 2020 YOCKOW.
      Licensed under MIT License.
      See "LICENSE.txt" for more information.
  **************************************************************************************************/
 
-///
-/**
- 
- # Bootstring
- Bootstring is one of string encoding methods.
- This structure holds parameters of Bootstring and can encode/decode string with them.
- 
-*/
-///
+/// Bootstring is one of string encoding methods.
+/// This structure holds parameters of Bootstring and can encode/decode string with them.
 public struct Bootstring {
   public var base: Int
   public var minimumThreshold: Int // `tmin` in RFC 3492
@@ -65,7 +58,7 @@ public struct Bootstring {
 }
 
 extension Bootstring {
-  private func adapt(delta:Int,
+  private func _adapt(delta:Int,
                      numberOfHandledCodePoints numpoints:Int,
                      firstTime:Bool) -> Int {
     // reference: https://tools.ietf.org/html/rfc3492#section-6.1
@@ -86,7 +79,7 @@ extension Bootstring {
   /// Decode `string` using `self`.
   /// - parameter string: The string to parse.
   /// - returns: Decoded string.
-  public func decode(_ string:String) throws -> String {
+  public func decode<S>(_ string: S) throws -> String where S: StringProtocol {
     if !self.isValid { throw BootstringError.invalidParameters }
     
     // reference: https://tools.ietf.org/html/rfc3492#section-6.2
@@ -110,7 +103,7 @@ extension Bootstring {
      */
     for ii in 0..<lastIndexOfDelimiter {
       let scalar = input[ii]
-      guard scalar.isBasicScalar(in:self) else { throw BootstringError.invalidInput }
+      guard scalar._isBasicScalar(in:self) else { throw BootstringError.invalidInput }
       output.append(scalar)
     }
     
@@ -144,7 +137,7 @@ extension Bootstring {
         kk += self.base
       }
       
-      bias = self.adapt(delta:index - oldIndex,
+      bias = self._adapt(delta:index - oldIndex,
                         numberOfHandledCodePoints:output.count + 1,
                         firstTime: oldIndex == 0)
       guard index / (output.count + 1) <= (Int.max - Int(nn.value)) else {
@@ -167,7 +160,7 @@ extension Bootstring {
   /// Encode `string` using `self`
   /// - parameter string: The string to encode.
   /// - returns: Encoded string.
-  public func encode(_ string:String) throws -> String {
+  public func encode<S>(_ string: S) throws -> String where S: StringProtocol {
     if !self.isValid { throw BootstringError.invalidParameters }
     
     // reference: https://tools.ietf.org/html/rfc3492#section-6.3
@@ -177,7 +170,7 @@ extension Bootstring {
     
     for ii in 0..<input.count {
       let scalar = input[ii]
-      if scalar.isBasicScalar(in:self) {
+      if scalar._isBasicScalar(in:self) {
         output.append(scalar)
       } else {
         nonBasicScalars.append((scalar:scalar, index:ii))
@@ -210,7 +203,7 @@ extension Bootstring {
       var delta: Int = 0
       let deltaIncreaser: (Int, Int, Int) throws -> Void = { (start, end, border) in
         for jj in start..<end {
-          if Int(input[jj].value) < border || input[jj].isBasicScalar(in:self) {
+          if Int(input[jj].value) < border || input[jj]._isBasicScalar(in:self) {
             guard delta < Int.max else { throw BootstringError.overflow }
             delta += 1
           }
@@ -257,7 +250,7 @@ extension Bootstring {
       
       numberOfHandledCodePoints += 1
       
-      bias = self.adapt(delta:delta,
+      bias = self._adapt(delta:delta,
                         numberOfHandledCodePoints:numberOfHandledCodePoints,
                         firstTime:ii == 0)
     }
