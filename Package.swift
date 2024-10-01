@@ -19,5 +19,5 @@ let package = Package(
     .target(name: "Bootstring", dependencies: []),
     .testTarget(name: "BootstringTests", dependencies: ["Bootstring"]),
   ],
-  swiftLanguageVersions: [.v4, .v4_2, .v5]
+  swiftLanguageVersions: [.v4, .v4_2, .v5, .version("6")]
 )
