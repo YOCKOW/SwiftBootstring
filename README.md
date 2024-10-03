@@ -13,8 +13,17 @@ Please refer to [RFC 3492](https://tools.ietf.org/html/rfc3492) for details.
 
 # Requirements
 
-- Swift 5 (including compatibility mode for Swift 4 or 4.2)
-- macOS or Linux
+## Swift
+
+- Swift 6*
+- Swift 5*
+
+(* including language mode of Swift 5, 4.2, or 4)
+
+## OS
+
+- macOS
+- Ubuntu
 
 
 # Usage
