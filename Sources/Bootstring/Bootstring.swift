@@ -7,7 +7,7 @@
 
 /// Bootstring is one of string encoding methods.
 /// This structure holds parameters of Bootstring and can encode/decode string with them.
-public struct Bootstring {
+public struct Bootstring: Sendable {
   public var base: Int
   public var minimumThreshold: Int // `tmin` in RFC 3492
   public var maximumThreshold: Int // `tmax` in RFC 3492
@@ -18,9 +18,9 @@ public struct Bootstring {
   
   public var additionalBasicScalars: Set<UnicodeScalar>? // not in use for Punycode
   public var delimiter: UnicodeScalar
-  public var digitEncoder: (Int) -> UnicodeScalar?
-  public var digitDecoder: (UnicodeScalar) -> Int?
-  
+  public var digitEncoder: @Sendable (Int) -> UnicodeScalar?
+  public var digitDecoder: @Sendable (UnicodeScalar) -> Int?
+
   public init(base:Int,
               minimumThreshold:Int,
               maximumThreshold:Int,
@@ -30,8 +30,8 @@ public struct Bootstring {
               initialScalar:UnicodeScalar,
               additionalBasicScalars: Set<UnicodeScalar>?,
               delimiter:UnicodeScalar,
-              digitEncoder:@escaping (Int) -> UnicodeScalar?,
-              digitDecoder:@escaping (UnicodeScalar) -> Int?) {
+              digitEncoder: @Sendable @escaping (Int) -> UnicodeScalar?,
+              digitDecoder: @Sendable @escaping (UnicodeScalar) -> Int?) {
     self.base = base
     self.minimumThreshold = minimumThreshold
     self.maximumThreshold = maximumThreshold
